@@ -1,25 +1,22 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Game {
 
-    Reporter reporter;
-    private Fan fanA;
-    private Fan fanB;
+    private List<Audience> audienceList = new ArrayList<>();
 
-    public void goalHappens(String team) {
-        fanA.react(team);
-        fanB.react(team);
 
-        reporter.react("A");
+    public void goalHappens(String whichTeam) {
+        notify(whichTeam);
     }
 
-    public void registerAudience(Reporter reporter) {
-        this.reporter = reporter;
+    private void notify(String whichTeam) {
+        for (Audience audience : audienceList) {
+            audience.react(whichTeam);
+        }
     }
 
-    public void registerFanA(Fan fan) {
-        this.fanA = fan;
-    }
-
-    public void registerFanB(Fan fan) {
-        this.fanB = fan;
+    public void registerAudience(Audience audience) {
+        audienceList.add(audience);
     }
 }

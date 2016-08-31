@@ -3,6 +3,5 @@ public class Reporter implements Audience {
     }
 
     public void react(String whichTeam) {
-
     }
 }

@@ -1,23 +1,29 @@
 public class Fan implements Audience{
-    private String suportedTeam;
+    private String supportedTeam;
+    private MessagePrinter messagePrinter;
 
-    public Fan(String suportedTeam) {
-        this.suportedTeam = suportedTeam;
+    public Fan(MessagePrinter messagePrinter) {
+        this.messagePrinter = messagePrinter;
     }
 
     public void reactPositively() {
-        
+        messagePrinter.print("HA");
     }
 
     public void reactNegatively() {
+        messagePrinter.print("WU");
     }
 
     @Override
     public void react(String whichTeam) {
-        if (suportedTeam.toLowerCase().equals(whichTeam.toLowerCase())) {
+        if (supportedTeam.toLowerCase().equals(whichTeam.toLowerCase())) {
             reactPositively();
         } else {
             reactNegatively();
         }
+    }
+
+    public void chooseTeam(String teamName) {
+        this.supportedTeam = teamName;
     }
 }

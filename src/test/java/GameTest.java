@@ -5,46 +5,38 @@ import static org.mockito.Mockito.*;
 
 public class GameTest {
 
-    private Fan fanA;
-    private Fan fanB;
+    private Fan fan;
     private Reporter reporter;
     private Game game;
 
     @Before
     public void setUp() throws Exception {
-        fanA = mock(Fan.class);
-        fanB = mock(Fan.class);
-        Power
-        reporter = mock(Reporter.class);
-        game = new Game();
-        game.registerAudience(reporter);
-        game.registerFanA(fanA);
-        game.registerFanB(fanB);
 
+        game = new Game();
+
+        fan = mock(Fan.class);
+        reporter = mock(Reporter.class);
+
+        game.registerAudience(reporter);
+        game.registerAudience(fan);
     }
 
     @Test
-    public void shouldReactWhenGameHasAGoal() throws Exception {
+    public void reporterShouldReactWhenGameHasAGoal() throws Exception {
+
         game.goalHappens("A");
 
         verify(reporter, times(1)).react("A");
     }
 
     @Test
-    public void FansShouldReactCorrectlyWhenTeamAScores() throws Exception {
+    public void FansShouldReactWhenGameHasAScores() throws Exception {
 
-        game.goalHappens("A");
+        String whichTeam = anyString();
 
-        verify(fanA, times(1)).reactPositively();
-        verify(fanB, times(1)).reactNegatively();
+        game.goalHappens(whichTeam);
+
+        verify(fan, times(1)).react(whichTeam);
     }
 
-    @Test
-    public void FansShouldReactCorrectlyWhenTeamBScores() throws Exception {
-
-        game.goalHappens("B");
-
-        verify(fanA, times(1)).reactNegatively();
-        verify(fanB, times(1)).reactPositively();
-    }
 }
